@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import requests
+import os
 from collections import defaultdict
 
 
@@ -15,25 +16,20 @@ TMDB_API_KEY = "c00fe4d0268482539a6645050108d7e2"
 # ----------------------------
 # Load PKL Files
 # ----------------------------
-@st.cache_resource
 def load_all_pkls():
-    with open("movies.pkl", "rb") as f:
-        movies = pickle.load(f)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-    with open("train_ratings.pkl", "rb") as f:
-        ratings = pickle.load(f)
+    def load_pkl(filename):
+        path = os.path.join(BASE_DIR, filename)
+        with open(path, "rb") as f:
+            return pickle.load(f)
 
-    with open("user_item_matrix.pkl", "rb") as f:
-        user_item_matrix = pickle.load(f)
-
-    with open("item_similarity_reduced.pkl", "rb") as f:
-        item_sim = pickle.load(f)
-
-    with open("content_similarity_reduced.pkl", "rb") as f:
-        content_sim = pickle.load(f)
-
-    with open("movie_popularity.pkl", "rb") as f:
-        popularity = pickle.load(f)
+    movies = load_pkl("movies.pkl")
+    ratings = load_pkl("train_ratings.pkl")
+    user_item_matrix = load_pkl("user_item_matrix.pkl")
+    item_sim = load_pkl("item_similarity_reduced.pkl")
+    content_sim = load_pkl("content_similarity_reduced.pkl")
+    popularity = load_pkl("movie_popularity.pkl")
 
     return movies, ratings, user_item_matrix, item_sim, content_sim, popularity
 
