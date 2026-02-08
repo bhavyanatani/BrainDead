@@ -1,6 +1,6 @@
 # Problem Statement:1 🎬 ReelSense: Explainable Movie Recommender System with Diversity Optimization 
 
-# Deployed Dashboard: https://reelsensemovie.streamlit.app
+## Deployed Dashboard: https://reelsensemovie.streamlit.app
 
 ReelSense is a hybrid movie recommendation system built using the **MovieLens Latest Small** dataset.  
 The system generates **personalized Top-K recommendations**, provides **human-readable explanations**, and evaluates performance not only on ranking quality but also on **diversity and catalog coverage**.
