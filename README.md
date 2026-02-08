@@ -1,6 +1,5 @@
 # Problem Statement:1 🎬 ReelSense: Explainable Movie Recommender System with Diversity Optimization 
 
-
 ## Deployed Dashboard: https://reelsensemovie.streamlit.app
 
 ReelSense is a hybrid movie recommendation system built using the **MovieLens Latest Small** dataset.  
@@ -122,3 +121,9 @@ These metrics ensure the system balances **accuracy, personalization, and divers
 Detailed metric computations and outputs are available in the notebook.
 
 ---
+
+# Problem Statement:2 Cognitive Radiology Report Generation
+
+## Report (IEEE Format): https://github.com/bhavyanatani/BrainDead/blob/main/IEEE%20Format%20Report.pdf
+
+## Demo Video: https://drive.google.com/drive/folders/1BWmLPHr8yTo1CCCFSXiv_AyglGLNK3fu
