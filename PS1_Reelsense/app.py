@@ -16,6 +16,7 @@ TMDB_API_KEY = "c00fe4d0268482539a6645050108d7e2"
 # ----------------------------
 # Load PKL Files
 # ----------------------------
+@st.cache_resource
 def load_all_pkls():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
