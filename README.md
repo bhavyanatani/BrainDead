@@ -127,3 +127,115 @@ Detailed metric computations and outputs are available in the notebook.
 ## Report (IEEE Format): https://github.com/bhavyanatani/BrainDead/blob/main/IEEE%20Format%20Report.pdf
 
 ## Demo Video: https://drive.google.com/drive/folders/1BWmLPHr8yTo1CCCFSXiv_AyglGLNK3fu
+
+CogRRG is a **cognitively inspired AI “Second Reader” system** for **structured Chest X-Ray (CXR) report generation**, designed to reduce reader fatigue and improve clinical accuracy by explicitly simulating radiological reasoning.
+
+This repository contains the official implementation of **CogRRG**, as described in our IEEE-format report:
+
+> **CogRRG: A Swin-Base Cognitive Second-Reader for Structured Chest X-Ray Report Generation**
+
+---
+
+## 🚨 Motivation
+
+Radiology reading rooms operate under intense cognitive load, leading to **3–5% discrepancy rates** in human-generated reports due to reader fatigue.  
+Most existing AI systems treat report generation as an **image captioning problem**, achieving good BLEU/CIDEr scores while often **hallucinating clinical findings**.
+
+CogRRG reframes report generation as a **cognitive reasoning task**, functioning as a **Second Reader** that drafts clinically grounded reports for radiologist review rather than replacing human judgment.
+
+---
+
+## 🧠 Core Idea: Cognitive Simulation
+
+Instead of a black-box encoder–decoder, CogRRG explicitly models **three stages of radiologist cognition**:
+
+1. **Hierarchical Visual Perception (PRO-FA)**
+2. **Diagnosis Formation (MIX-MLP)**
+3. **Closed-Loop Hypothesis Verification (RCTA)**
+
+This design improves **clinical efficiency**, **reduces hallucinations**, and provides **interpretable intermediate representations**.
+
+---
+
+## 🧩 Cognitive Modules
+
+### 1️⃣ PRO-FA: Hierarchical Visual Perception
+
+Radiologists examine CXRs at multiple granularities: global organs, regional lobes, and fine-grained lesions.  
+PRO-FA mirrors this behavior using a **Swin-Base Transformer**.
+
+- Extracts **pixel-level**, **region-level**, and **organ-level** tokens
+- Processes multi-view CXRs (PA/AP/Lateral) with shared weights
+- Aligns visual tokens with a curated **CXR-RadLex concept bank** using contrastive loss
+
+This grounding ensures the model learns *what anatomical and pathological concepts look like*, rather than relying on spurious correlations.
+
+---
+
+### 2️⃣ MIX-MLP: Knowledge-Enhanced Diagnosis Formation
+
+Before writing reports, radiologists form an internal diagnostic hypothesis.  
+MIX-MLP explicitly models this step.
+
+- Predicts **14 CheXpert pathologies** using a multi-label classifier
+- Dual-path architecture:
+  - **Residual Path** for stable linear separability
+  - **Expansion Path** for modeling disease co-occurrence
+- Trained with weighted BCE and label smoothing to handle noisy labels
+
+The predicted pathology vector serves as a **diagnostic hypothesis** that conditions report generation.
+
+---
+
+### 3️⃣ RCTA: Triangular Cognitive Attention (Verification Loop)
+
+RCTA implements a **closed-loop reasoning mechanism** inspired by clinical verification:
+
+1. **Contextualization:** Image features attend to clinical indication text (e.g., age, sex, symptoms)
+2. **Hypothesis Formation:** Context attends to predicted pathology embeddings
+3. **Verification:** Hypotheses re-attend to fine-grained image tokens for evidence checking
+
+This triangular attention loop significantly reduces hallucinations and enforces clinical consistency during generation.
+
+---
+
+## 📊 Datasets
+
+### MIMIC-CXR (Primary Training Dataset)
+- 377,110 images from 227,835 studies
+- PA, AP, and Lateral views
+- Free-text radiology reports
+- Used for end-to-end training and evaluation
+
+### IU X-Ray (Domain Generalization Benchmark)
+- 7,470 images from 3,955 reports
+- Explicit Findings and Impression sections
+- Treated as an **out-of-distribution benchmark** to test robustness and generalization
+
+---
+
+## 📈 Evaluation Metrics
+
+CogRRG is evaluated using **clinically grounded metrics**, not just text similarity:
+
+| Category | Metric |
+|--------|--------|
+| Clinical Accuracy | CheXpert F1 |
+| Structural Reasoning | RadGraph F1 |
+| NLG Fluency | CIDEr, BLEU-4 |
+
+### Key Results
+- **CheXpert F1:** 0.56  
+- **RadGraph F1:** 0.52  
+- **CIDEr:** 0.45  
+
+All metrics exceed the hackathon benchmark thresholds.
+
+---
+
+## 🧩 Interpretability
+
+CogRRG provides interpretability at multiple levels:
+- **Concept Heatmaps:** Visual–RadLex alignment maps
+- **Explicit Diagnosis Hypotheses:** Pathology probabilities before generation
+- **Structural Verification:** RadGraph-based relation analysis
