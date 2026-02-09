@@ -126,7 +126,9 @@ Detailed metric computations and outputs are available in the notebook.
 
 ## Report (IEEE Format): https://github.com/bhavyanatani/BrainDead/blob/main/IEEE%20Format%20Report.pdf
 
-## Demo Video and Model Checkpoint: https://drive.google.com/drive/folders/1BWmLPHr8yTo1CCCFSXiv_AyglGLNK3fu
+## Demo Video: https://drive.google.com/drive/folders/1BWmLPHr8yTo1CCCFSXiv_AyglGLNK3fu
+
+## Model Checkpoint: https://www.kaggle.com/code/angshuman7/cognitive-radiology-report-generation/output
 
 CogRRG is a **cognitively inspired AI “Second Reader” system** for **structured Chest X-Ray (CXR) report generation**, designed to reduce reader fatigue and improve clinical accuracy by explicitly simulating radiological reasoning.
 
