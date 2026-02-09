@@ -229,6 +229,8 @@ CogRRG is evaluated using **clinically grounded metrics**, not just text similar
 - **RadGraph F1:** 0.52  
 - **CIDEr:** 0.45  
 
+![WhatsApp Image 2026-02-09 at 4 49 02 AM](https://github.com/user-attachments/assets/7c05dd39-8fa4-458c-8983-9416c6489f3e)
+
 All metrics exceed the hackathon benchmark thresholds.
 
 ---
