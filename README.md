@@ -124,6 +124,8 @@ Detailed metric computations and outputs are available in the notebook.
 
 # Problem Statement:2 Cognitive Radiology Report Generation
 
+## Problem Statement 2 Github URL: https://github.com/AngRoy/BrainDead-Solution
+
 ## Report (IEEE Format): https://github.com/bhavyanatani/BrainDead/blob/main/IEEE%20Format%20Report.pdf
 
 ## Demo Video: https://drive.google.com/drive/folders/1BWmLPHr8yTo1CCCFSXiv_AyglGLNK3fu
